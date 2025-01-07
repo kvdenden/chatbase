@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  unstructured-api:
+    image: downloads.unstructured.io/unstructured-io/unstructured-api:latest
+    container_name: unstructured-api
+    platform: linux/amd64
+    ports:
+      - 8000:8000
+    volumes:
+      - unstructured-data:/data
+    command: ["make", "run-web-app", "--port", "8000"]
+    restart: unless-stopped
+    environment:
+      UNSTRUCTURED_API_KEY: ${UNSTRUCTURED_API_KEY}
+  pinecone:
+    image: ghcr.io/pinecone-io/pinecone-index:latest
+    container_name: pinecone
+    platform: linux/amd64
+    ports:
+      - 5080:5080
+    environment:
+      PORT: 5080
+      INDEX_TYPE: serverless
+      DIMENSION: 1536
+      METRIC: cosine
+  # db:
+  #   image: pgvector/pgvector:pg16
+  #   container_name: db
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - db:/var/lib/postgresql/data
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - POSTGRES_DB=${POSTGRES_DB}
+
+volumes:
+  unstructured-data:
+  # db:

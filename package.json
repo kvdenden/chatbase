@@ -6,22 +6,30 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "services:start": "sh services/scripts/start.sh",
+    "services:stop": "sh services/scripts/stop.sh"
   },
   "dependencies": {
+    "@langchain/community": "^0.3.22",
+    "@langchain/core": "^0.3.27",
+    "formidable": "^3.5.2",
+    "langchain": "^0.3.9",
+    "mime-types": "^2.1.35",
+    "next": "15.1.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.3"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@types/mime-types": "^2.1.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.3",
-    "@eslint/eslintrc": "^3"
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
