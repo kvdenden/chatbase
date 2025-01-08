@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import mime from "mime-types";
 
 import { loadDocuments } from "@/util/documents";
+import { storeDocuments } from "@/util/store";
 
 function toFileName(url: URL, contentType: string | null) {
   const fileName = url.pathname.split("/").pop() || "index";
@@ -24,7 +25,9 @@ export async function POST(request: NextRequest) {
     const { url } = await request.json();
 
     const documents = await loadFromURL(new URL(url));
-    return NextResponse.json({ data: documents });
+    await storeDocuments(documents);
+
+    return NextResponse.json({ documents }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error }, { status: 500 });

@@ -1,7 +1,7 @@
 import type { Document } from "langchain/document";
 import { UnstructuredLoader } from "@langchain/community/document_loaders/fs/unstructured";
 
-type Metadata = Record<string, unknown>;
+export type Metadata = Record<string, unknown>;
 
 function addMetadata(doc: Document, metadata: Metadata) {
   return {

@@ -13,30 +13,30 @@ services:
     restart: unless-stopped
     environment:
       UNSTRUCTURED_API_KEY: ${UNSTRUCTURED_API_KEY}
-  pinecone:
-    image: ghcr.io/pinecone-io/pinecone-index:latest
-    container_name: pinecone
-    platform: linux/amd64
-    ports:
-      - 5080:5080
-    environment:
-      PORT: 5080
-      INDEX_TYPE: serverless
-      DIMENSION: 1536
-      METRIC: cosine
-  # db:
-  #   image: pgvector/pgvector:pg16
-  #   container_name: db
+  # pinecone:
+  #   image: ghcr.io/pinecone-io/pinecone-index:latest
+  #   container_name: pinecone
+  #   platform: linux/amd64
   #   ports:
-  #     - 5432:5432
-  #   volumes:
-  #     - db:/var/lib/postgresql/data
-  #   restart: unless-stopped
+  #     - 5080:5080
   #   environment:
-  #     - POSTGRES_USER=${POSTGRES_USER}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-  #     - POSTGRES_DB=${POSTGRES_DB}
+  #     PORT: 5080
+  #     INDEX_TYPE: serverless
+  #     DIMENSION: 1536
+  #     METRIC: cosine
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: db
+    ports:
+      - 5555:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
 
 volumes:
   unstructured-data:
-  # db:
+  db:
